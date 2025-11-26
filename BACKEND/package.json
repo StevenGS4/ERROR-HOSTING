@@ -1,12 +1,13 @@
 {
   "name": "servicio-errores",
   "version": "1.0.0",
-  "description": "Servicio de registro y asignación inteligente de errores (CAP + Express + MongoDB).",
+  "description": "Servicio de errores (SAP CAP + Express + MongoDB).",
   "private": true,
   "type": "module",
 
   "dependencies": {
     "@sap/cds": "^9.4.4",
+    "@sap/cds-dk": "^9.4.3",
     "@google/generative-ai": "^0.24.1",
     "axios": "^1.13.2",
     "cors": "^2.8.5",
@@ -16,19 +17,20 @@
   },
 
   "devDependencies": {
-    "@cap-js/sqlite": "^2.0.4"
+    "@cap-js/cds-types": "0.14.0"
   },
 
   "scripts": {
-    "start": "cds run",
-    "dev": "cds watch",
-    "serve:mocks": "cds serve --with-mocks",
-    "build": "cds build"
+    "start": "cds-serve"
   },
 
   "engines": {
     "node": "20.x"
   },
+
+  "files": [
+    "srv"
+  ],
 
   "cds": {
     "folders": {
@@ -40,19 +42,6 @@
       "auth": {
         "kind": "mocked"
       }
-    },
-    "serve": {
-      "ZterrorlogService": {
-        "path": "/odata/v4/api/error"
-      }
     }
-  },
-
-  "files": [
-    "srv"
-  ],
-
-  "main": "server.js",
-  "license": "ISC",
-  "author": ""
+  }
 }
