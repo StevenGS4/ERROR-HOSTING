@@ -1,34 +1,58 @@
 {
   "name": "servicio-errores",
   "version": "1.0.0",
-  "description": "A simple CAP project.",
+  "description": "Servicio de registro y asignación inteligente de errores (CAP + Express + MongoDB).",
+  "private": true,
+  "type": "module",
+
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
     "@sap/cds": "^9.4.4",
+    "@google/generative-ai": "^0.24.1",
     "axios": "^1.13.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "mongoose": "^8.19.2"
   },
-  "type": "module",
+
   "devDependencies": {
     "@cap-js/sqlite": "^2.0.4"
   },
+
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds run",
+    "dev": "cds watch",
+    "serve:mocks": "cds serve --with-mocks",
+    "build": "cds build"
   },
-  "private": true,
-  "files": [
-    "srv"
-  ],
+
+  "engines": {
+    "node": "20.x"
+  },
+
   "cds": {
     "folders": {
       "db": "srv/api/models",
       "srv": "srv/api/routes"
+    },
+    "requires": {
+      "db": false,
+      "auth": {
+        "kind": "mocked"
+      }
+    },
+    "serve": {
+      "ZterrorlogService": {
+        "path": "/odata/v4/api/error"
+      }
     }
   },
+
+  "files": [
+    "srv"
+  ],
+
   "main": "server.js",
-  "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "author": ""
 }
