@@ -161,6 +161,8 @@ const getError = async (rowKey) => {
   try {
     // En Azure necesitamos PartitionKey + RowKey para una búsqueda puntual eficiente
     const entity = await tableClient.getEntity(PARTITION_KEY, rowKey);
+    console.log("encontrado")
+    console.log(parseEntity(entity));
     return sendResponse(200, "Success", parseEntity(entity));
   } catch (error) {
     console.error("❌ [GetOneError] Error:", error);

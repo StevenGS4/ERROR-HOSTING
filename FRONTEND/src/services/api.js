@@ -6,7 +6,7 @@ export async function callCrud(queryType, body = {}, extraParams = {}) {
   const defaultParams = {
     LoggedUser: "Admin",
     dbServer: selectedServer || "mongo",
-    ...extraParams,
+    ...extraParams, 
   };
 
   const query = new URLSearchParams({

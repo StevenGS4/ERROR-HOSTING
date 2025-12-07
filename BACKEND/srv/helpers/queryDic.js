@@ -9,7 +9,8 @@ import azureService from "./../api/services/azure-zterrorlog-service.js";
  * Decide qué servicio usar y normaliza la ejecución del método
  */
 const runService = async (dbServer, action, payload = null) => {
-  const isAzure = dbServer === "Azure";
+  const isAzure = dbServer.toLowerCase() === "azure";
+  console.log(dbServer)
 
   switch (action) {
     case "getAll":

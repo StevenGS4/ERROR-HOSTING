@@ -249,21 +249,31 @@ const ErrorDetail = () => {
   const [aiSuggestion, setAiSuggestion] = useState(null);
   const [showAISuggestion, setShowAISuggestion] = useState(false);
 
+  const fetchError = async (url) => {
+    // console.log(url);
+    const { data } = await axios.post(url, {});
+    // console.log(data)
+    setError(data.data[0]);
+  };
+
   // 🔹 Cargar error desde backend
   const loadError = async () => {
-    console.log(error);
+    setLoading(true);
+    let url;
+
+    url =
+      id && id.includes("-")
+        ? `${
+            import.meta.env.VITE_API_BASE
+          }?queryType=getOne&LoggedUser=Admin&dbServer=azure&id=${id}`
+        : `${
+            import.meta.env.VITE_API_BASE
+          }?queryType=getOne&LoggedUser=Admin&dbServer=mongo&id=${id}`;
+
     try {
-      setLoading(true);
-
-      const { ok, rows, message } = await fetchErrorById(id);
-      const data = Array.isArray(rows) ? rows : [rows];
-
-      if (!ok || !data.length) throw new Error(message || "No encontrado");
-
-      setError(data[0]);
-    } catch (err) {
-      console.error("❌ Error al cargar detalle:", err);
-      alert("Error al cargar el detalle del error.");
+      fetchError(url);
+    } catch (error) {
+      throw new Error(message || "No encontrado");
     } finally {
       setLoading(false);
     }
