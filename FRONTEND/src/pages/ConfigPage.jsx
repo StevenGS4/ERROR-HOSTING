@@ -127,8 +127,6 @@ export default function ConfigPage() {
       "COMPANYID",
       "CEDIID",
       "EMPLOYEEID",
-      "BIRTHDATE",
-      "PROFILE_PIC_URL",
       "ACTIVE",
     ];
 
@@ -158,6 +156,7 @@ export default function ConfigPage() {
     console.log("📤 Enviando a backend (updateOne):", cleanBody);
 
     return axios.post(url, { usuario: cleanBody });
+
   };
 
   // ======================================================
@@ -256,7 +255,8 @@ export default function ConfigPage() {
       showMessage("success", "Perfil actualizado correctamente");
     } catch (err) {
       console.error("❌ Error guardando perfil:", err);
-      showMessage("error", "No se pudo guardar el perfil");
+  console.log("🔥 Backend respondió:", err.response?.data);
+  showMessage("error", "No se pudo guardar el perfil");
     } finally {
       setSavingProfile(false);
     }
