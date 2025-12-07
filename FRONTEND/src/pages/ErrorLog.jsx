@@ -69,8 +69,8 @@ const ErrorLog = () => {
   const [loading, setLoading] = useState(false);
   const [loggedUser, setLoggedUser] = useState({});
 
-  console.log(errors)
-  console.log(filter)
+  console.log(errors);
+  console.log(filter);
 
   // 🔥 Filtros avanzados
   const [advFilters, setAdvFilters] = useState({
@@ -204,7 +204,7 @@ const ErrorLog = () => {
     // const element = document.
     const value = event.target.getAttribute("value");
     const checked = event.target.checked;
-    console.log('4444444444')
+    console.log("4444444444");
     console.log(value);
     console.log(checked);
     toggleArrayFilter("status", value, checked);

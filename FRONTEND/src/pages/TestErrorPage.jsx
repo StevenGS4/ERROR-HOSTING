@@ -3,7 +3,7 @@ import {
   Card,
   CardHeader,
   BusyIndicator,
-  Text
+  Text,
 } from "@ui5/webcomponents-react";
 
 import axios from "axios";
@@ -40,9 +40,11 @@ export default function TestErrorPage() {
 
       // ⭐ ACTUALIZAR datos desde API (por si cambiaron)
       const res = await axios.post(
-        "http://localhost:3333/api/users/crud?ProcessType=getById&DBServer=MongoDB&LoggedUser=TEST",
+        `${
+          import.meta.env.VITE_DOMINIO_USUARIOS
+        }?ProcessType=getById&DBServer=MongoDB&LoggedUser=AGUIZARE`,
         {
-          usuario: { USERID: parsed.USERID }
+          usuario: { USERID: parsed.USERID },
         }
       );
 
@@ -66,7 +68,6 @@ export default function TestErrorPage() {
 
       // Actualizar globalmente
       localStorage.setItem("loggedUser", JSON.stringify(userFound));
-
     } catch (err) {
       console.error("❌ Error cargando usuario:", err);
     } finally {
@@ -99,7 +100,7 @@ export default function TestErrorPage() {
         source: "front/ProductSync.jsx",
         CREATED_BY_APP: user?.USERID || "UNKNOWN",
         process: "Sincronización de catálogo e inventario",
-        environment: "DEV"
+        environment: "DEV",
       });
 
       errorId = res?.rows?.[0]?._id;
@@ -107,7 +108,7 @@ export default function TestErrorPage() {
       // 2) Leer error recién guardado (opcional)
       try {
         const savedError = (
-          await axios.get(`http://localhost:3334/odata/v4/api/error/${errorId}`)
+          await axios.get(`${import.meta.env.VITE_API_BASE}${errorId}`)
         ).data;
 
         console.log("🔥 savedError:", savedError);
@@ -116,28 +117,22 @@ export default function TestErrorPage() {
       }
 
       // 3) Auto-assignment
-      try {
-        console.log("⚙ Ejecutando auto-assign...");
-        await axios.post("http://localhost:3334/api/error/assign", {
-          errorId,
-          module: "PRODUCTOS"
-        });
-        console.log("🟢 Auto-assign ejecutado");
-      } catch (e) {
-        console.error("❌ Error en auto-assign:", e);
-      }
-
+      // try {
+      //   console.log("⚙ Ejecutando auto-assign...");
+      //   await axios.post("http://localhost:3334/api/error/assign", {
+      //     errorId,
+      //     module: "PRODUCTOS",
+      //   });
+      //   console.log("🟢 Auto-assign ejecutado");
+      // } catch (e) {
+      //   console.error("❌ Error en auto-assign:", e);
+      // }
     } catch (e) {
       console.error("ERROR GENERAL EN generarError:", e);
     }
 
     // 4) Enviar notificación local
-    sendNoti(
-      err.message,
-      errorId,
-      "error",
-      "PRODUCTOS"
-    );
+    sendNoti(err.message, errorId, "error", "PRODUCTOS");
   };
 
   // ============================================================
@@ -159,7 +154,6 @@ export default function TestErrorPage() {
   return (
     <div className="test-wrapper">
       <Card className="test-card">
-
         <CardHeader
           titleText="Simulador de Errores"
           subtitleText="Ventana de prueba para generador de errores"
@@ -177,10 +171,18 @@ export default function TestErrorPage() {
           <p className="user-role">{user.ROLEID}</p>
 
           <div className="user-data-box">
-            <p><b>ID:</b> {user.USERID}</p>
-            <p><b>Email:</b> {user.EMAIL}</p>
-            <p><b>Alias:</b> {user.ALIAS}</p>
-            <p><b>Extensión:</b> {user.EXTENSION}</p>
+            <p>
+              <b>ID:</b> {user.USERID}
+            </p>
+            <p>
+              <b>Email:</b> {user.EMAIL}
+            </p>
+            <p>
+              <b>Alias:</b> {user.ALIAS}
+            </p>
+            <p>
+              <b>Extensión:</b> {user.EXTENSION}
+            </p>
           </div>
         </div>
 

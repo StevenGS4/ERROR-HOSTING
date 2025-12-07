@@ -346,7 +346,7 @@ const ErrorDetail = () => {
   async function assignToUser(userId) {
     try {
       const res = await axios.post(
-        `http://localhost:3334/api/error/assign?dbServer=${selectedServer}`,
+        `${import.meta.env.VITE_API_BASE}assign?dbServer=${selectedServer}`,
         {
           errorId: error.ERRORID || error.rowKey, // ✔ usar ERRORID, no _id
           assignedUser: userId,

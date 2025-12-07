@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3334/odata/v4/api/error/crud";
-
 // Helper genérico
 export async function callCrud(queryType, body = {}, extraParams = {}) {
   const selectedServer = localStorage.getItem("selectedServer") || "mongo";
@@ -17,10 +15,14 @@ export async function callCrud(queryType, body = {}, extraParams = {}) {
   }).toString();
 
   try {
-    const { data } = await axios.post(`${BASE_URL}?${query}`, body);
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_BASE}?${query}`,
+      body
+    );
     return data;
   } catch (err) {
     console.error("❌ Error en callCrud:", err);
+    console.log(err)
     return { success: false, data: [], messageUSR: err.message };
   }
 }
