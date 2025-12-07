@@ -14,6 +14,7 @@
     "express": "^4.21.2",
     "mongoose": "^8.19.2"
   },
+  "type": "module",
   "devDependencies": {
     "@cap-js/sqlite": "^2.0.4",
     "@cap-js/cds-types": "0.14.0",
@@ -36,21 +37,9 @@
       "auth": {
         "kind": "mocked"
       }
-    },
-    "profiles": {
-      "production": {
-        "requires": {
-          "db": false,
-          "auth": {
-            "kind": "mocked"
-          }
-        }
-      }
     }
   },
-  "type": "module",
   "main": "server.js",
   "author": "",
   "license": "ISC"
 }
-
