@@ -26,11 +26,11 @@ export default defineConfig({
     proxy: {
       // CAP
       '/odata': {
-        target: process.env.VITE_API_BASE || 'http://localhost:3333',
+        target: process.env.VITE_API_BASE || 'https://error-hosting.onrender.com/',
         changeOrigin: true
       },
       '/health': {
-        target: process.env.VITE_API_BASE || 'http://localhost:3333',
+        target: process.env.VITE_API_BASE || 'https://error-hosting.onrender.com/',
         changeOrigin: true
       },
     }
