@@ -1,0 +1,224 @@
+/* ===============================
+   ERROR DETAIL – COMPATIBLE FIORI
+   =============================== */
+
+/* 🔹 Contenedor principal */
+.detail-container {
+  padding: 2rem;
+  background: #f9fafb;
+}
+
+/* 🔹 Estado de carga */
+.loading {
+  padding: 2rem;
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
+
+/* 🔹 Cabecera de detalle (para fallback sin Card Fiori) */
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Avatar del usuario */
+.detail-avatar {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+/* Texto secundario */
+.detail-sub {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+/* Etiqueta de estado (solo usada si no hay ObjectStatus Fiori) */
+.status-tag {
+  margin-left: auto;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: white;
+}
+.status-tag.new { background: #f1c40f; color: #000; }
+.status-tag.in_progress { background: #3498db; }
+.status-tag.resolved { background: #2ecc71; }
+.status-tag.ignored { background: #95a5a6; }
+
+/* 🔹 Contenido informativo */
+.error-summary {
+  line-height: 1.6;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 🔹 Contexto técnico (JSON) */
+.context-pre {
+  background: #111827;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+/* 🔹 Contenedor de pestañas (fallback si no se usa TabContainer Fiori) */
+.tabs-container {
+  margin-top: 2rem;
+}
+
+/* 🔹 Botones inferiores (Ignorar / Resuelto) */
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.ignore,
+.resolve {
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.ignore {
+  background-color: #f87171;
+  color: white;
+}
+.ignore:hover {
+  background-color: #dc2626;
+}
+
+.resolve {
+  background-color: #22c55e;
+  color: white;
+}
+.resolve:hover {
+  background-color: #16a34a;
+}
+
+/* 🔹 Área IA (solo para fallback visual) */
+.ai-container {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 1.2rem;
+  margin-top: 1rem;
+}
+
+.ai-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ai-header h4 {
+  margin: 0;
+  color: #111827;
+  font-size: 1.1rem;
+}
+
+/* Botón IA (solo usado si no se reemplaza por Button Fiori) */
+.ai-fix-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.ai-fix-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* 🔹 Comentarios (se mantiene igual) */
+.comment-box {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.comment-avatar {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.comment-user {
+  font-weight: 600;
+  margin: 0;
+  color: #111827;
+}
+
+.comment-hint {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.comment-input {
+  width: 100%;
+  resize: none;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  outline: none;
+  margin-bottom: 0.8rem;
+  transition: border 0.2s ease;
+}
+
+.comment-input:focus {
+  border-color: #2563eb;
+}
+
+.comment-send {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+.comment-send:hover {
+  background-color: #15803d;
+}
+
+.sublist {
+  margin-left: 1.5rem;
+  opacity: 0.9;
+}
+
+.sublist li {
+  list-style-type: circle;
+}

@@ -1,0 +1,44 @@
+
+POST https://gadev-usuarios.onrender.com/api/users/crud?ProcessType=assignRol&DBServer=MongoDB&LoggedUser=AGUIZARE
+Content-Type: application/json
+
+{
+    "usuario": {
+        "USERID": "ERR001",
+        "ROLEID": "jefe.errores"
+    }
+}
+
+###
+
+POST https://gadev-usuarios.onrender.com/api/users/crud?ProcessType=assignRol&DBServer=MongoDB&LoggedUser=AGUIZARE
+Content-Type: application/json
+
+{
+    "usuario": {
+        "USERID": "ERR002",
+        "ROLEID": "dev.errores"
+    }
+}
+
+###
+
+POST https://gadev-usuarios.onrender.com/api/users/crud?ProcessType=assignRol&DBServer=MongoDB&LoggedUser=AGUIZARE
+Content-Type: application/json
+
+{
+    "usuario": {
+        "USERID": "ERR003",
+        "ROLEID": "dev.errores"
+    }
+}
+###
+POST https://gadev-usuarios.onrender.com/api/users/crud?ProcessType=assignRol&DBServer=MongoDB&LoggedUser=AGUIZARE
+Content-Type: application/json
+
+{
+    "usuario": {
+        "USERID": "ERRDEV01",
+        "ROLEID": "dev.errores"
+    }
+}

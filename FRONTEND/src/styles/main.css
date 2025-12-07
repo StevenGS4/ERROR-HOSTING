@@ -1,0 +1,105 @@
+/* ===============================
+   MAIN LAYOUT – COMPATIBLE FIORI
+   =============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fuente global y colores base */
+body {
+  font-family: "72", "Segoe UI", Roboto, sans-serif;
+  background-color: #f5f6fa;
+  color: #333;
+}
+
+/* ====== Layout general ====== */
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ====== Sidebar (fallback cuando no se usa <SideNavigation>) ====== */
+.sidebar {
+  background-color: #ffffff;
+  width: 230px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.sidebar h2 {
+  font-size: 1.2rem;
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.sidebar nav a:hover {
+  background-color: #eaf2ff;
+  color: #007bff;
+}
+
+/* ====== Navbar (fallback cuando no se usa <ShellBar>) ====== */
+.navbar {
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h1 {
+  font-size: 1.3rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.user-info img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+
+/* ====== Contenedor principal ====== */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #f5f7fa;
+  padding-bottom: 1rem;
+}
+
+/* ====== Ajustes Fiori ======
+   (pequeños márgenes para componentes SAP)
+*/
+ui5-shellbar {
+  width: 100%;
+}
+
+ui5-sidenavigation {
+  height: 100vh;
+  border-right: 1px solid #e5e7eb;
+}
+
+ui5-flexbox {
+  width: 100%;
+  height: 100%;
+}

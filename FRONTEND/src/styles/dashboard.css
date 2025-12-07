@@ -1,0 +1,54 @@
+/* ================================
+   DASHBOARD – COMPATIBLE CON SAP FIORI
+   ================================ */
+
+/* 🔹 Espaciado general del contenedor principal */
+.dashboard-body {
+  padding: 2rem;
+}
+
+/* 🔹 Contenedor de tarjetas Fiori o clásicas */
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* 🔹 Compatibilidad visual con Cards Fiori
+   (solo se aplicará si usas div.card personalizado) */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  flex: 1;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 🔹 Efecto hover compatible con Fiori */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔹 Titular dentro de la tarjeta */
+.card h3 {
+  font-size: 2rem;
+  color: #007bff;
+  margin: 0;
+}
+
+/* 🔹 Texto descriptivo */
+.card p {
+  color: #555;
+  font-weight: 500;
+  margin-top: 0.3rem;
+}
+
+/* 🔹 Ajuste para Cards SAP Fiori (cuando existan) */
+.ui5-card {
+  margin: 0 auto;
+  border-radius: 12px;
+}

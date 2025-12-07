@@ -1,0 +1,44 @@
+.noti-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: #111827;
+  color: #f9fafb;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  z-index: 9999;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  animation: slideIn 0.25s ease-out;
+  max-width: 360px;
+}
+
+.noti-container.error {
+  border-left: 5px solid #ef4444;
+}
+
+.noti-container.advertencia {
+  border-left: 5px solid #f59e0b;
+}
+
+.noti-btn {
+  background: #f9fafb;
+  color: #111827;
+  border-radius: 999px;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.noti-btn:hover {
+  background: #e5e7eb;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}

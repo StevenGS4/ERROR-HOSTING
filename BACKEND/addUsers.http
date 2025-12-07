@@ -1,0 +1,56 @@
+
+POST https://gadev-usuarios.onrender.com/api/users/crud?ProcessType=postUsuario&DBServer=MongoDB&LoggedUser=AGUIZARE
+Content-Type: application/json
+
+{
+    "usuario": {
+        "USERID": "ERR002",
+        "USERNAME": "Ramses Herrera",
+        "COMPANYID": 1003,
+        "CEDIID": 2005,
+        "EMPLOYEEID": 2002,
+        "EMAIL": "ramses.herrera@empresa.com"
+      }
+}
+###
+POST https://gadev-usuarios.onrender.com/api/users/crud?ProcessType=postUsuario&DBServer=MongoDB&LoggedUser=AGUIZARE
+Content-Type: application/json
+
+{
+    "usuario": {
+        "USERID": "ERR003",
+        "USERNAME": "Juan Martínez",
+        "COMPANYID": 1003,
+        "CEDIID": 2005,
+        "EMPLOYEEID": 2003,
+        "EMAIL": "juan.martinez@empresa.com"
+      }
+}
+###
+POST https://gadev-usuarios.onrender.com/api/users/crud?ProcessType=postUsuario&DBServer=MongoDB&LoggedUser=AGUIZARE
+Content-Type: application/json
+
+{
+    "usuario": {
+        "USERID": "ERRDEV01",
+        "USERNAME": "Gilmar Salinas",
+        "COMPANYID": 1003,
+        "CEDIID": 2005,
+        "EMPLOYEEID": 2501,
+        "EMAIL": "gilmar.salinas@empresa.com"
+      }
+}
+###
+POST https://gadev-usuarios.onrender.com/api/users/crud?ProcessType=postUsuario&DBServer=MongoDB&LoggedUser=AGUIZARE
+Content-Type: application/json
+
+{
+    "usuario": {
+        "USERID": "ERR001",
+        "USERNAME": "Andrik López",
+        "COMPANYID": 1003,
+        "CEDIID": 2005,
+        "EMPLOYEEID": 2001,
+        "EMAIL": "andrik.lopez@empresa.com"
+      }
+}

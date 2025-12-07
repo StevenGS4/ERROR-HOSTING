@@ -1,0 +1,29 @@
+/* ================================
+   🎨 VARIABLES MODO CLARO
+================================ */
+:root {
+  --bg: #f5f6fa;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --text: #333;
+  --text-secondary: #5c6675;
+  --border: #ddd;
+
+  --accent: #007bff;
+  --accent-hover: #0069d9;
+}
+
+/* ================================
+   🌙 VARIABLES MODO OSCURO
+================================ */
+[data-theme="dark"] {
+  --bg: #0f111a;
+  --bg-secondary: #161922;
+  --bg-card: #1b1f2b;
+  --text: #e1e6f0;
+  --text-secondary: #9ba3b5;
+  --border: #2a2e39;
+
+  --accent: #4c8dff;
+  --accent-hover: #3c73d9;
+}

@@ -1,0 +1,74 @@
+.nav-wrapper {
+  width: 100%;
+  height: 70px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.8rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  border-bottom: 1px solid #e5e5e5;
+}
+
+[data-theme="dark"] .nav-wrapper {
+  background: #1d212a;
+  border-bottom: 1px solid #2a2f3a;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.nav-title {
+  margin: 0;
+  font-weight: 700;
+  color: #0b2c4a;
+}
+
+[data-theme="dark"] .nav-title {
+  color: #d6e4ff;
+}
+
+.nav-user-name {
+  color: #555;
+  font-size: 14px;
+}
+
+[data-theme="dark"] .nav-user-name {
+  color: #c9c9c9;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Avatar estilo premium */
+.nav-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid #e5e5e5;
+  transition: all 0.2s ease;
+}
+
+.nav-avatar:hover {
+  transform: scale(1.06);
+}
+
+/* Botones de icono */
+.nav-icon-btn {
+  font-size: 18px;
+  padding: 6px;
+}
+
+/* Popover */
+.nav-popover {
+  padding: 0;
+  border-radius: 10px;
+}

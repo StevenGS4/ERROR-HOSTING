@@ -1,0 +1,37 @@
+{
+  "name": "servicio-errores",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "dependencies": {
+    "@azure/data-tables": "^13.3.2",
+    "@azure/identity": "^4.13.0",
+    "@azure/storage-blob": "^12.29.1",
+    "@google/generative-ai": "^0.24.1",
+    "@sap/cds": "^9.4.4",
+    "axios": "^1.13.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "mongoose": "^8.19.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.0.4"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "private": true,
+  "files": [
+    "srv"
+  ],
+  "cds": {
+    "folders": {
+      "db": "srv/api/models",
+      "srv": "srv/api/routes"
+    }
+  },
+  "main": "server.js",
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,31 @@
+{
+  "name": "error-manager-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5174"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.10.1",
+    "@ui5/webcomponents": "^1.24.24",
+    "@ui5/webcomponents-base": "^1.21.0",
+    "@ui5/webcomponents-fiori": "^1.21.0",
+    "@ui5/webcomponents-icons": "^1.24.24",
+    "@ui5/webcomponents-react": "^1.29.20",
+    "@ui5/webcomponents-react-base": "^1.20.0",
+    "axios": "^1.13.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.9.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "^9.39.1",
+    "vite": "^7.2.2",
+    "vite-plugin-pwa": "^1.1.0"
+  }
+}

@@ -1,0 +1,125 @@
+/* Pantalla completa */
+.elogin-fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(140deg, #0b1222 0%, #151d30 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+/* Caja central estilo login moderno */
+.elogin-box {
+  width: 450px;
+  background: #ffffff;
+  padding: 2.5rem 2.2rem;
+  border-radius: 20px;
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  animation: fadeSlideUp 0.7s ease;
+}
+
+/* Avatar grande */
+.elogin-avatar {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.8rem;
+}
+
+/* Encabezado */
+.elogin-title h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0e1726;
+}
+
+.elogin-title p {
+  margin: 0;
+  margin-bottom: 1.4rem;
+  color: #6e7a90;
+  font-size: 0.95rem;
+}
+
+/* Nombre y rol */
+.elogin-username h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin: 0;
+  color: #0e1726;
+}
+
+.elogin-role {
+  color: #6e7a90;
+  font-size: 1rem;
+}
+
+/* Información del usuario */
+.elogin-data {
+  margin: 1.2rem 0 2rem 0;
+  background: #f1f4f8;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: left;
+  line-height: 1.5rem;
+  color: #0e1726;
+  font-size: 0.95rem;
+}
+
+/* Botón */
+.elogin-button {
+  width: 100%;
+  padding: 0.8rem 0;
+  border-radius: 12px !important;
+  font-size: 1.05rem;
+}
+
+/* Loading */
+.elogin-loading {
+  width: 100vw;
+  height: 100vh;
+  background: #0b1222;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Animación */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Contenedor del botón */
+.elogin-button {
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: 12px !important;
+
+  /* para que no se corte */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* mantiene el botón en su sitio */
+  min-height: 50px !important;
+}
+
+/* Ajuste interno del botón UI5 */
+.elogin-button::part(button) {
+  line-height: 1.25 !important;
+  padding: 0.7rem !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+}

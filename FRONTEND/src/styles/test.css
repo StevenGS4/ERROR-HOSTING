@@ -1,0 +1,116 @@
+/* Fondo elegante */
+.test-wrapper {
+  height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Card principal */
+.test-card {
+  width: 480px;
+  border-radius: 18px;
+  overflow: hidden;
+  animation: fadeIn 0.4s ease;
+  background: #ffffffdd;
+  backdrop-filter: blur(8px);
+}
+
+/* Info del usuario */
+.test-user-info {
+  padding: 1.7rem;
+  text-align: center;
+}
+
+.test-user-info h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.65rem;
+  font-weight: 600;
+}
+
+.user-role {
+  margin-top: 4px;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.user-data-box {
+  background: #f1f5f9;
+  padding: 1rem 1.3rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+  text-align: left;
+  font-size: 0.95rem;
+  display: grid;
+  gap: 6px;
+}
+
+/* Botón principal */
+.test-action {
+  padding: 1.5rem 2rem 2.2rem;  /* MÁS ESPACIO ABAJO */
+  display: flex;
+  justify-content: center;
+}
+
+.btn-error {
+  width: 100%;
+  padding: 1rem 1rem; 
+  font-size: 1.15rem;
+  border-radius: 12px;
+  background-color: #ef4444 !important;
+  color: white !important;
+
+  line-height: 1.35;           /* ⭐ CLAVE: Corrige texto cortado */
+  display: flex;               /* Centrado perfecto */
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+  border: none !important;
+  transition: 0.2s ease;
+}
+
+
+.btn-error:hover {
+  background-color: #dc2626 !important;
+  transform: translateY(-2px); /* LEVANTA EL BOTÓN */
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.5);
+}
+
+
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading */
+.test-loading {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f172a;
+  flex-direction: column;
+}
+
+.btn-error::part(button) {
+  background-color: #ef4444 !important;
+  color: white !important;
+  padding: 0.95rem 1rem !important;
+  border-radius: 12px !important;
+  font-size: 1.15rem !important;
+  font-weight: 600;
+  line-height: 1.4 !important;
+
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
+}
+
+.btn-error::part(button):hover {
+  background-color: #dc2626 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.45);
+}
