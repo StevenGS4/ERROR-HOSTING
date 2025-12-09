@@ -1,13 +1,19 @@
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  base: '/', // 🔥 necesario para Vercel + rutas
+
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'icon-192.png', 'icon-512.png'],
+      workbox: {
+        cleanupOutdatedCaches: true,
+      },
       manifest: {
         name: 'Error Manager',
         short_name: 'Errors',
@@ -21,18 +27,19 @@ export default defineConfig({
       }
     })
   ],
-    // server: {
-    //   port: 5173,
-    //   proxy: {
-    //     // CAP
-    //     '/odata': {
-    //       target: process.env.VITE_API_BASE || 'http://localhost:3333',
-    //       changeOrigin: true
-    //     },
-    //     '/health': {
-    //       target: process.env.VITE_API_BASE || 'http://localhost:3333',
-    //       changeOrigin: true
-    //     },
-    //   }
-    // }
+
+  // ⚠️ SOLO para desarrollo, no para Vercel
+  // server: {
+  //   port: 5173,
+  //   proxy: {
+  //     '/odata': {
+  //       target: process.env.VITE_API_BASE || 'http://localhost:3333',
+  //       changeOrigin: true
+  //     },
+  //     '/health': {
+  //       target: process.env.VITE_API_BASE || 'http://localhost:3333',
+  //       changeOrigin: true
+  //     }
+  //   }
+  // }
 })
