@@ -323,7 +323,7 @@ export default function ConfigPage() {
                   style={{ gap: "0.5rem", alignItems: "center" }}
                 >
                   <img src={bigAvatar} alt="" className="config-page-avatar" />
-                  <Button
+                  {/*<Button
                     icon="refresh"
                     design="Emphasized"
                     onClick={() => {
@@ -333,7 +333,7 @@ export default function ConfigPage() {
                     }}
                   >
                     Cambiar Foto
-                  </Button>
+                  </Button>*/}
                 </FlexBox>
 
                 {/* FORM */}
@@ -342,8 +342,8 @@ export default function ConfigPage() {
                   <Input value={profileForm.USERID} disabled />
 
                   {/* 🎂 CAMPO CUMPLEAÑOS */}
-                  <Label>Cumpleaños</Label>
-                  {/* <Input
+                  {/*<Label>Cumpleaños</Label>
+                   <Input
                     value={profileForm.BIRTHDATE || ""}
                     onInput={handleProfileChange("BIRTHDATE")}
                     type="Date"
@@ -375,12 +375,12 @@ export default function ConfigPage() {
                     type="Text"
                   />
 
-                  <Label>Extensión</Label>
+                  {/*<Label>Extensión</Label>
                   <Input
                     value={profileForm.EXTENSION || ""}
                     onInput={handleProfileChange("EXTENSION")}
                     disabled
-                  />
+                  />*/}
 
                   <Label>Company ID</Label>
                   <Input
@@ -439,7 +439,7 @@ export default function ConfigPage() {
       </TabContainer>
 
       {/* DIÁLOGO PARA CAMBIAR FOTO DE PERFIL */}
-      <Dialog
+      {/*<Dialog
         headerText="Cambiar Foto de Perfil"
         open={avatarDialogOpen}
         onAfterClose={() => setAvatarDialogOpen(false)}
@@ -483,6 +483,7 @@ export default function ConfigPage() {
           />
         </div>
       </Dialog>
+      */}
     </div>
   );
 }
