@@ -34,8 +34,7 @@ export async function updateError(error) {
 }
 
 export async function fetchAISolution(id) {
-  const res = await fetch(
-    `${import.meta.env.VITE_API_BASE}ai-suggestion/${id}`
-  );
+  const res = await fetch(`${import.meta.env.VITE_API_IA}${id}`);
   return await res.json();
 }
+
