@@ -1,16 +1,27 @@
 import express from "express";
 import { getAISolution } from "../services/ai-service.js";
 import zterrorlog from "../models/mongodb/zterrorlog.js";
+import azureZterrorlogService from "../services/azure-zterrorlog-service.js";
 
 const router = express.Router();
 
-router.get("/ai-suggestion/:id", async (req, res) => {
+router.get("ai-suggestion/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    let error;
 
-    const error = await zterrorlog.findById(id).lean();
+    if (id.includes("-")) {
+      let res = await azureZterrorlogService.getError(id);
+      const { data } = JSON.parse(res);
+      error = data;
+    } else {
+      error = await zterrorlog.findById(id).lean();
+    }
+
     if (!error) {
-      return res.status(404).json({ ok: false, message: "Error no encontrado" });
+      return res
+        .status(404)
+        .json({ ok: false, message: "Error no encontrado" });
     }
 
     const context = `
@@ -30,7 +41,6 @@ ${(error.USER_SESSION_LOG || []).join("\n")}
     const aiRes = await getAISolution(error.ERRORMESSAGE, context);
 
     return res.json({ ok: true, ai: aiRes.aiResponse });
-
   } catch (err) {
     console.error("IA ERROR:", err);
     return res.status(500).json({ ok: false, message: err.message });

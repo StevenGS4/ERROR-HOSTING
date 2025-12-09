@@ -3,6 +3,7 @@ import ZTERRORLOG from "../models/mongodb/zterrorlog.js";
 import azureService from "../services/azure-zterrorlog-service.js"; // Asegúrate de que la ruta sea correcta
 
 export async function manualAssignController(req, res) {
+  console.log("entre a manual asign")
   try {
     const { errorId, assignedUser, assignedBy } = req.body;
 

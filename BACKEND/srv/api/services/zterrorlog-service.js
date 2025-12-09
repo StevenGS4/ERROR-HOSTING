@@ -328,10 +328,20 @@ const DeleteOneError = async (id) => {
   }
 };
 
+const GetAi = async (id) => {
+  try {
+    const error = await zterrorlog.findById(id).lean();
+    if(error) {
+      return await getAISolution(error)
+    }
+  } catch (error) {}
+};
+
 export default {
   GetAllErrors,
   GetOneError,
   InsertOneError,
   UpdateOneError,
   DeleteOneError,
+  GetAi
 };
