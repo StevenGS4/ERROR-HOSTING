@@ -265,12 +265,10 @@ const ErrorDetail = () => {
 
     url =
       id && id.includes("-")
-        ? `${
-            import.meta.env.VITE_API_BASE
-          }?queryType=getOne&LoggedUser=Admin&dbServer=azure&id=${id}`
-        : `${
-            import.meta.env.VITE_API_BASE
-          }?queryType=getOne&LoggedUser=Admin&dbServer=mongo&id=${id}`;
+        ? `${import.meta.env.VITE_API_BASE
+        }?queryType=getOne&LoggedUser=Admin&dbServer=azure&id=${id}`
+        : `${import.meta.env.VITE_API_BASE
+        }?queryType=getOne&LoggedUser=Admin&dbServer=mongo&id=${id}`;
 
     try {
       fetchError(url);
@@ -301,9 +299,9 @@ const ErrorDetail = () => {
         RESOLVEDBY:
           status === "RESOLVED"
             ? loggedUser?.USERID ||
-              loggedUser?.ALIAS ||
-              loggedUser?.USERNAME ||
-              "Desconocido"
+            loggedUser?.ALIAS ||
+            loggedUser?.USERNAME ||
+            "Desconocido"
             : error.RESOLVEDBY,
       };
 
@@ -343,9 +341,9 @@ const ErrorDetail = () => {
   // 🔹 Fecha
   const fecha = error.ERRORDATETIME
     ? new Date(error.ERRORDATETIME).toLocaleString("es-MX", {
-        dateStyle: "medium",
-        timeStyle: "short",
-      })
+      dateStyle: "medium",
+      timeStyle: "short",
+    })
     : "Fecha desconocida";
 
   const createdBy = error.CREATED_BY_APP || "Sistema";
@@ -356,9 +354,8 @@ const ErrorDetail = () => {
   const selectedServer = localStorage.getItem("selectedServer") || "mongo";
   // 🔥 ASIGNAR USUARIO A ERROR
   async function assignToUser(userId) {
-    let url = `${
-      import.meta.env.VITE_ERROR_DOMINIO
-    }/api/error/assign?dbServer=`;
+    let url = `${import.meta.env.VITE_ERROR_DOMINIO
+      }/api/error/assign?dbServer=`;
     try {
       if (id.includes("-")) {
         url = url.concat("azure");
@@ -366,8 +363,7 @@ const ErrorDetail = () => {
         url = url.concat("mongo");
       }
       const res = await axios.post(
-        `${
-          import.meta.env.VITE_ERROR_DOMINIO
+        `${import.meta.env.VITE_ERROR_DOMINIO
         }/api/error/assign?dbServer=${selectedServer}`,
         {
           errorId: error.ERRORID || error.rowKey, // ✔ usar ERRORID, no _id
@@ -506,43 +502,43 @@ const ErrorDetail = () => {
                   {loggedUser.ROLES?.some((r) =>
                     r.ROLEID.startsWith("jefe.")
                   ) && (
-                    <ui5-button
-                      design="Positive"
-                      icon="employee"
-                      style={{ width: "100%", marginTop: "0.5rem" }}
-                      onClick={() => assignToUser(u)}
-                    >
-                      Asignar
-                    </ui5-button>
-                  )}
+                      <ui5-button
+                        design="Positive"
+                        icon="employee"
+                        style={{ width: "100%", marginTop: "0.5rem" }}
+                        onClick={() => assignToUser(u)}
+                      >
+                        Asignar
+                      </ui5-button>
+                    )}
 
                   {/* BOTÓN: QUITAR VISUALIZACIÓN */}
                   {loggedUser.ROLES?.some((r) =>
                     r.ROLEID.startsWith("jefe.")
                   ) && (
-                    <ui5-button
-                      design="Negative"
-                      icon="delete"
-                      style={{ width: "100%", marginTop: "0.5rem" }}
-                      onClick={async () => {
-                        if (!confirm(`¿Quitar a ${u} de la visualización?`))
-                          return;
+                      <ui5-button
+                        design="Negative"
+                        icon="delete"
+                        style={{ width: "100%", marginTop: "0.5rem" }}
+                        onClick={async () => {
+                          if (!confirm(`¿Quitar a ${u} de la visualización?`))
+                            return;
 
-                        const updated = {
-                          ...error,
-                          CANSEEUSERS: error.CANSEEUSERS.filter((x) => x !== u),
-                        };
+                          const updated = {
+                            ...error,
+                            CANSEEUSERS: error.CANSEEUSERS.filter((x) => x !== u),
+                          };
 
-                        const { ok } = await updateError(updated);
-                        if (!ok) return alert("No se pudo quitar.");
+                          const { ok } = await updateError(updated);
+                          if (!ok) return alert("No se pudo quitar.");
 
-                        alert("Usuario removido.");
-                        loadError();
-                      }}
-                    >
-                      Quitar Visualización
-                    </ui5-button>
-                  )}
+                          alert("Usuario removido.");
+                          loadError();
+                        }}
+                      >
+                        Quitar Visualización
+                      </ui5-button>
+                    )}
                 </div>
               ))
             ) : (
@@ -800,7 +796,11 @@ const ErrorDetail = () => {
                       }}
                       onClick={async () => {
                         setAiLoading(true);
-                        const ai = await fetchAISolution(error._id);
+
+                        // ID válido para Mongo y Azure
+                        const realId = error._id || error.ERRORID || error.rowKey;
+
+                        const ai = await fetchAISolution(realId);
 
                         if (!ai.ok) {
                           alert("❌ No se pudo obtener la sugerencia IA");
@@ -812,6 +812,7 @@ const ErrorDetail = () => {
                         setShowAISuggestion(true);
                         setAiLoading(false);
                       }}
+
                     >
                       IA
                     </Button>
@@ -1048,8 +1049,8 @@ const ErrorDetail = () => {
     error.STATUS === "RESOLVED"
       ? "Success"
       : error.STATUS === "IGNORED"
-      ? "Warning"
-      : "Error";
+        ? "Warning"
+        : "Error";
 
   return (
     <>
