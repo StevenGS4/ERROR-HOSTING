@@ -1,6 +1,13 @@
 import dotenvXConfig from "../config/dotenvXConfig.js";
 
+const diccCanalesFijo = {
+  mensajeria: "6937bd2690c6bfaf620f224a",
+  notificaciones: "6937bd2690c6bfaf620f224a",
+  
+};
+
 export const sendSystemNotification = async (errorResponse) => {
+  console.log(errorResponse)
   const errorPayload = errorResponse.data;
   // console.log("=================================");
   // console.log(errorPayload);
@@ -38,7 +45,7 @@ export const sendSystemNotification = async (errorResponse) => {
       const responses = await Promise.all(
         RECEIPTS.map(async (rec) => {
           const res = await fetch(
-            `${dotenvXConfig.DOMINIO_NOTIFICACOINES}channels/getChannelsSummary`,
+            `${dotenvXConfig.DOMINIO_NOTIS}channels/getChannelsSummary`,
             {
               method: "POST",
               headers: {
@@ -65,12 +72,20 @@ export const sendSystemNotification = async (errorResponse) => {
         })
       );
 
-      return responses; // ← arreglo de resultados para cada RECEIPT
+      return responses;
     };
 
     console.log(await fetchChannels());
     const CHANNELS = await fetchChannels();
+
+    //ASIGNACION DE CANAL FIJO
+    if (diccCanalesFijo[errorPayload.MODULE]) {
+      console.log(diccCanalesFijo[errorPayload.MODULE]);
+      CHANNELS.push(diccCanalesFijo[errorPayload.MODULE]);
+    }
+
     console.log(errorPayload);
+
     const notificationBody = {
       CONTENT: errorSummary,
       RECEIPTS,
@@ -81,13 +96,13 @@ export const sendSystemNotification = async (errorResponse) => {
         }?user=` || null,
     };
 
-    console.log(notificationBody.LINK);
+    console.log(notificationBody);
 
     // console.log("=================================");
     console.log(notificationBody);
 
     const response = await fetch(
-      `${dotenvXConfig.DOMINIO_NOTIFICACOINES}messages/sendNotificacionSistema`,
+      `${dotenvXConfig.DOMINIO_NOTIS}messages/sendNotificacionSistema`,
       {
         method: "POST",
         headers: {
