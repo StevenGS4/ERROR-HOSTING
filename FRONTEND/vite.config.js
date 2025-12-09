@@ -21,18 +21,18 @@ export default defineConfig({
       }
     })
   ],
-  server: {
-    port: 5173,
-    proxy: {
-      // CAP
-      '/odata': {
-        target: process.env.VITE_API_BASE || 'https://error-hosting.onrender.com/',
-        changeOrigin: true
-      },
-      '/health': {
-        target: process.env.VITE_API_BASE || 'https://error-hosting.onrender.com/',
-        changeOrigin: true
-      },
-    }
-  }
+    // server: {
+    //   port: 5173,
+    //   proxy: {
+    //     // CAP
+    //     '/odata': {
+    //       target: process.env.VITE_API_BASE || 'http://localhost:3333',
+    //       changeOrigin: true
+    //     },
+    //     '/health': {
+    //       target: process.env.VITE_API_BASE || 'http://localhost:3333',
+    //       changeOrigin: true
+    //     },
+    //   }
+    // }
 })
