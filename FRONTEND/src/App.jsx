@@ -53,7 +53,7 @@ function App() {
           <Route
             path="/*"
             element={
-              <ProtectedRoute>
+              
                 <>
                   {/** 🔥 ACTIVA EL REGISTRO DE SESIÓN SOLO PARA USUARIOS LOGUEADOS */}
                   {useUserSessionLog()}
@@ -76,7 +76,7 @@ function App() {
                     </FlexBox>
                   </FlexBox>
                 </>
-              </ProtectedRoute>
+              
             }
 
           />
@@ -90,3 +90,4 @@ function App() {
 }
 
 export default App;
+
