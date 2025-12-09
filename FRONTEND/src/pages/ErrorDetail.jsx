@@ -354,9 +354,19 @@ const ErrorDetail = () => {
   const selectedServer = localStorage.getItem("selectedServer") || "mongo";
   // 🔥 ASIGNAR USUARIO A ERROR
   async function assignToUser(userId) {
+    let url = `${
+      import.meta.env.VITE_ERROR_DOMINIO
+    }/api/error/assign?dbServer=`;
     try {
+      if (id.includes("-")) {
+        url = url.concat("azure");
+      } else {
+        url = url.concat("mongo");
+      }
       const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE}assign?dbServer=${selectedServer}`,
+        `${
+          import.meta.env.VITE_ERROR_DOMINIO
+        }/api/error/assign?dbServer=${selectedServer}`,
         {
           errorId: error.ERRORID || error.rowKey, // ✔ usar ERRORID, no _id
           assignedUser: userId,
