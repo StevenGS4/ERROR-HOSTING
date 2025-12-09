@@ -343,12 +343,12 @@ export default function ConfigPage() {
 
                   {/* 🎂 CAMPO CUMPLEAÑOS */}
                   <Label>Cumpleaños</Label>
-                  <Input
+                  {/* <Input
                     value={profileForm.BIRTHDATE || ""}
                     onInput={handleProfileChange("BIRTHDATE")}
                     type="Date"
                     placeholder="AAAA-MM-DD"
-                  />
+                  /> */}
 
                   <Label>Nombre</Label>
                   <Input

@@ -37,7 +37,11 @@ export default async function startServer(o = {}) {
     console.log("✅ CAP activo");
 
     // 2️⃣ Middlewares globales
-    app.use(cors());
+    app.use(
+      cors({
+        origin: "*",
+      })
+    );
     app.use(express.json({ limit: "1mb" }));
     app.use(respPWA);
 

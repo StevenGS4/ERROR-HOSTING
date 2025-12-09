@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Tabs from "../components/Tabs";
 import axios from "axios";
 
@@ -241,6 +241,8 @@ const ChatGPTLayoutEngine = ({ content }) => {
 const ErrorDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);

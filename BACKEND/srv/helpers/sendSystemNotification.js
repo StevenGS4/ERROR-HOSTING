@@ -1,6 +1,6 @@
 import dotenvXConfig from "../config/dotenvXConfig.js";
 
-export  const sendSystemNotification = async (errorResponse) => {
+export const sendSystemNotification = async (errorResponse) => {
   const errorPayload = errorResponse.data;
   // console.log("=================================");
   // console.log(errorPayload);
@@ -78,7 +78,7 @@ export  const sendSystemNotification = async (errorResponse) => {
       LINK:
         `${dotenvXConfig.FRONTEND_DOMINIO}/${
           errorPayload._id || errorPayload.ERRORID || errorPayload.rowKey
-        }` || null,
+        }?user=` || null,
     };
 
     console.log(notificationBody.LINK);
