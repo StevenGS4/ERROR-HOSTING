@@ -3,11 +3,11 @@ import dotenvXConfig from "../config/dotenvXConfig.js";
 const diccCanalesFijo = {
   mensajeria: "6937bd2690c6bfaf620f224a",
   notificaciones: "6937bd2690c6bfaf620f224a",
-  
+  errores: "6937c93edca895df12447a39",
 };
 
 export const sendSystemNotification = async (errorResponse) => {
-  console.log(errorResponse)
+  console.log(errorResponse);
   const errorPayload = errorResponse.data;
   // console.log("=================================");
   // console.log(errorPayload);
@@ -20,6 +20,38 @@ export const sendSystemNotification = async (errorResponse) => {
 
     // Obtenemos el módulo para el canal. Si no viene, usamos un default.
     const channelModule = errorPayload.MODULE || "GENERAL";
+
+    if (!errorPayload.CANSEEUSERS) {
+      const { MODULE } = errorPayload;
+
+      const response = await fetch(
+        `${dotenvXConfig.DOMINIO_USUARIOS}?ProcessType=getAll&DBServer=MongoDB&LoggedUser=AGUIZARE`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: "{}",
+        }
+      );
+
+      const data = await response.json();
+      console.log("%%%");
+      // console.log(data?.value?.[0]?.data?.[0]?.dataRes);
+      const usuarios = data?.value?.[0]?.data?.[0]?.dataRes;
+      const filtrados = usuarios
+        .filter((u) =>
+          u.ROLES?.some((r) =>
+            r.ROLEID.toLowerCase().includes(MODULE.toLowerCase())
+          )
+        )
+        .map((u) => u.USERID);
+      errorPayload.CANSEEUSERS = filtrados;
+      console.log(
+        "==========================================================="
+      );
+      console.log(errorPayload.CANSEEUSERS);
+    }
 
     const RECEIPTS = errorPayload.CANSEEUSERS;
     console.log(RECEIPTS);
@@ -91,7 +123,7 @@ export const sendSystemNotification = async (errorResponse) => {
       RECEIPTS,
       CHANNELS,
       LINK:
-        `${dotenvXConfig.FRONTEND_DOMINIO}/${
+        `${dotenvXConfig.FRONTEND_DOMINIO}/errors/${
           errorPayload._id || errorPayload.ERRORID || errorPayload.rowKey
         }?user=` || null,
     };

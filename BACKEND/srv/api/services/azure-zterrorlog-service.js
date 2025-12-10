@@ -149,7 +149,7 @@ const getAllErrors = async () => {
       500,
       "Error retrieving errors from Azure",
       [],
-      error.message
+      error
     );
   }
 };
@@ -167,7 +167,7 @@ const getError = async (rowKey) => {
   } catch (error) {
     console.error("❌ [GetOneError] Error:", error);
     if (error.statusCode === 404) return sendResponse(404, "Error not found");
-    return sendResponse(500, "Error retrieving record", [], error.message);
+    return sendResponse(500, "Error retrieving record", [], error);
   }
 };
 

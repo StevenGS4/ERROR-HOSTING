@@ -334,7 +334,7 @@ const GetAi = async (id) => {
     if(error) {
       return await getAISolution(error)
     }
-  } catch (error) {}
+  } catch (err) {}
 };
 
 export default {

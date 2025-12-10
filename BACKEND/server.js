@@ -30,17 +30,19 @@ export default async function startServer(o = {}) {
     // 🔥 CORRECCIÓN CRÍTICA: Configurar CORS antes de que arranque el servidor
     // Esto asegura que CORS intercepte las peticiones OPTIONS antes que las rutas OData
     cds.on("bootstrap", (app) => {
-        console.log("🛡️ Activando CORS Middleware en bootstrap...");
-        app.use(cors({
-            origin: [
-                "https://error-hosting.vercel.app", // Tu frontend en producción
-                "http://localhost:3000",            // Tu frontend local
-                "http://localhost:5173"             // Vite local (por si acaso)
-            ],
-            methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-            allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-            credentials: true // Permite cookies/headers de autorización
-        }));
+      console.log("🛡️ Activando CORS Middleware en bootstrap...");
+      app.use(
+        cors({
+          origin: [
+            "https://error-hosting.vercel.app", // Tu frontend en producción
+            "http://localhost:3000", // Tu frontend local
+            "http://localhost:5173", // Vite local (por si acaso)
+          ],
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+          allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+          credentials: true, // Permite cookies/headers de autorización
+        })
+      );
     });
 
     // 1️⃣ Iniciar CAP (Ahora cargará el CORS definido arriba durante el inicio)
@@ -90,15 +92,20 @@ export default async function startServer(o = {}) {
           // Lógica para Azure/External ID
           let responseService = await azureZterrorlogService.getError(id);
           // Verificar si responseService es string o ya objeto
-          const resParsed = typeof responseService === 'string' ? JSON.parse(responseService) : responseService;
-          
+          const resParsed =
+            typeof responseService === "string"
+              ? JSON.parse(responseService)
+              : responseService;
+
           if (resParsed.status && resParsed.status != 200) {
-             // Manejo seguro por si el parseo o estructura varía
-             return res.status(404).json({ ok: false, message: "Error no encontrado en Azure" });
+            // Manejo seguro por si el parseo o estructura varía
+            return res
+              .status(404)
+              .json({ ok: false, message: "Error no encontrado en Azure" });
           }
-           // Aquí deberías asignar 'error' basado en resParsed para usarlo abajo
-           // Asumo que resParsed trae la estructura del error, ajusta según tu servicio Azure
-           error = resParsed.data || resParsed; 
+          // Aquí deberías asignar 'error' basado en resParsed para usarlo abajo
+          // Asumo que resParsed trae la estructura del error, ajusta según tu servicio Azure
+          error = resParsed.data || resParsed;
         } else {
           // Lógica MongoDB
           error = await zterrorlog.findById(id).lean();
@@ -111,11 +118,11 @@ export default async function startServer(o = {}) {
         }
 
         const context = `
-    Mensaje: ${error.ERRORMESSAGE || 'N/A'}
-    Código: ${error.ERRORCODE || 'N/A'}
-    Origen: ${error.ERRORSOURCE || 'N/A'}
-    Módulo: ${error.MODULE || 'N/A'}
-    Aplicación: ${error.APPLICATION || 'N/A'}
+    Mensaje: ${error.ERRORMESSAGE || "N/A"}
+    Código: ${error.ERRORCODE || "N/A"}
+    Origen: ${error.ERRORSOURCE || "N/A"}
+    Módulo: ${error.MODULE || "N/A"}
+    Aplicación: ${error.APPLICATION || "N/A"}
     
     Contexto técnico:
     ${JSON.stringify(error.CONTEXT || {}, null, 2)}
