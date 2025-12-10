@@ -242,7 +242,19 @@ const ErrorDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const { search, pathname } = location;
 
+  const [validating, setValidating] = useState(true);
+  const [allowed, setAllowed] = useState(false);
+
+  // Ruta tipo /errors/:id
+  const isErrorDetailRoute = /^\/errors\/[^/]+$/.test(pathname);
+
+  const query = new URLSearchParams(search);
+  const userParam = query.get("user");
+
+  const loggedUser = localStorage.getItem("loggedUser");
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -250,6 +262,61 @@ const ErrorDetail = () => {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiSuggestion, setAiSuggestion] = useState(null);
   const [showAISuggestion, setShowAISuggestion] = useState(false);
+
+  useEffect(() => {
+    // 🔹 Si NO es ruta /errors/:id → Solo requerimos login normal
+    if (!isErrorDetailRoute) {
+      setAllowed(!!loggedUser);
+      setValidating(false);
+      return;
+    }
+
+    // 🔹 Si es /errors/:id pero NO viene user ?user=
+    if (isErrorDetailRoute && !userParam) {
+      setAllowed(!!loggedUser);
+      setValidating(false);
+      return;
+    }
+
+    // 🔹 Si es /errors/:id y VIENE user → validación con API
+    const validarUsuario = async () => {
+      try {
+        const res = await axios.post(
+          `${
+            import.meta.env.VITE_DOMINIO_USUARIOS
+          }?ProcessType=getById&DBServer=MongoDB&LoggedUser=AGUIZARE`,
+          {
+            usuario: { USERID: userParam },
+          }
+        );
+
+        const usuario =
+          res.data?.value?.[0]?.data?.[0]?.dataRes ||
+          res.data?.value?.[0]?.data?.[0] ||
+          null;
+
+        if (!usuario) {
+          setAllowed(false);
+          setValidating(false);
+          return;
+        }
+
+        const role = usuario.ROLES?.[0]?.ROLEID || "Sin rol";
+        usuario.ROLEID = role;
+
+        localStorage.setItem("loggedUser", JSON.stringify(usuario));
+
+        setAllowed(true);
+        setValidating(false);
+      } catch (error) {
+        console.error("Error en login:", error);
+        setAllowed(false);
+        setValidating(false);
+      }
+    };
+
+    validarUsuario();
+  }, [isErrorDetailRoute, userParam, loggedUser, pathname]);
 
   const fetchError = async (url) => {
     // console.log(url);
@@ -265,10 +332,12 @@ const ErrorDetail = () => {
 
     url =
       id && id.includes("-")
-        ? `${import.meta.env.VITE_API_BASE
-        }?queryType=getOne&LoggedUser=Admin&dbServer=azure&id=${id}`
-        : `${import.meta.env.VITE_API_BASE
-        }?queryType=getOne&LoggedUser=Admin&dbServer=mongo&id=${id}`;
+        ? `${
+            import.meta.env.VITE_API_BASE
+          }?queryType=getOne&LoggedUser=Admin&dbServer=azure&id=${id}`
+        : `${
+            import.meta.env.VITE_API_BASE
+          }?queryType=getOne&LoggedUser=Admin&dbServer=mongo&id=${id}`;
 
     try {
       fetchError(url);
@@ -299,9 +368,9 @@ const ErrorDetail = () => {
         RESOLVEDBY:
           status === "RESOLVED"
             ? loggedUser?.USERID ||
-            loggedUser?.ALIAS ||
-            loggedUser?.USERNAME ||
-            "Desconocido"
+              loggedUser?.ALIAS ||
+              loggedUser?.USERNAME ||
+              "Desconocido"
             : error.RESOLVEDBY,
       };
 
@@ -341,21 +410,21 @@ const ErrorDetail = () => {
   // 🔹 Fecha
   const fecha = error.ERRORDATETIME
     ? new Date(error.ERRORDATETIME).toLocaleString("es-MX", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    })
+        dateStyle: "medium",
+        timeStyle: "short",
+      })
     : "Fecha desconocida";
 
   const createdBy = error.CREATED_BY_APP || "Sistema";
 
   const ctxItem = Array.isArray(error.CONTEXT) ? error.CONTEXT[0] : null;
 
-  const loggedUser = JSON.parse(localStorage.getItem("loggedUser") || "{}");
   const selectedServer = localStorage.getItem("selectedServer") || "mongo";
   // 🔥 ASIGNAR USUARIO A ERROR
   async function assignToUser(userId) {
-    let url = `${import.meta.env.VITE_ERROR_DOMINIO
-      }/api/error/assign?dbServer=`;
+    let url = `${
+      import.meta.env.VITE_ERROR_DOMINIO
+    }/api/error/assign?dbServer=`;
     try {
       if (id.includes("-")) {
         url = url.concat("azure");
@@ -363,7 +432,8 @@ const ErrorDetail = () => {
         url = url.concat("mongo");
       }
       const res = await axios.post(
-        `${import.meta.env.VITE_ERROR_DOMINIO
+        `${
+          import.meta.env.VITE_ERROR_DOMINIO
         }/api/error/assign?dbServer=${selectedServer}`,
         {
           errorId: error.ERRORID || error.rowKey, // ✔ usar ERRORID, no _id
@@ -502,43 +572,43 @@ const ErrorDetail = () => {
                   {loggedUser.ROLES?.some((r) =>
                     r.ROLEID.startsWith("jefe.")
                   ) && (
-                      <ui5-button
-                        design="Positive"
-                        icon="employee"
-                        style={{ width: "100%", marginTop: "0.5rem" }}
-                        onClick={() => assignToUser(u)}
-                      >
-                        Asignar
-                      </ui5-button>
-                    )}
+                    <ui5-button
+                      design="Positive"
+                      icon="employee"
+                      style={{ width: "100%", marginTop: "0.5rem" }}
+                      onClick={() => assignToUser(u)}
+                    >
+                      Asignar
+                    </ui5-button>
+                  )}
 
                   {/* BOTÓN: QUITAR VISUALIZACIÓN */}
                   {loggedUser.ROLES?.some((r) =>
                     r.ROLEID.startsWith("jefe.")
                   ) && (
-                      <ui5-button
-                        design="Negative"
-                        icon="delete"
-                        style={{ width: "100%", marginTop: "0.5rem" }}
-                        onClick={async () => {
-                          if (!confirm(`¿Quitar a ${u} de la visualización?`))
-                            return;
+                    <ui5-button
+                      design="Negative"
+                      icon="delete"
+                      style={{ width: "100%", marginTop: "0.5rem" }}
+                      onClick={async () => {
+                        if (!confirm(`¿Quitar a ${u} de la visualización?`))
+                          return;
 
-                          const updated = {
-                            ...error,
-                            CANSEEUSERS: error.CANSEEUSERS.filter((x) => x !== u),
-                          };
+                        const updated = {
+                          ...error,
+                          CANSEEUSERS: error.CANSEEUSERS.filter((x) => x !== u),
+                        };
 
-                          const { ok } = await updateError(updated);
-                          if (!ok) return alert("No se pudo quitar.");
+                        const { ok } = await updateError(updated);
+                        if (!ok) return alert("No se pudo quitar.");
 
-                          alert("Usuario removido.");
-                          loadError();
-                        }}
-                      >
-                        Quitar Visualización
-                      </ui5-button>
-                    )}
+                        alert("Usuario removido.");
+                        loadError();
+                      }}
+                    >
+                      Quitar Visualización
+                    </ui5-button>
+                  )}
                 </div>
               ))
             ) : (
@@ -729,9 +799,6 @@ const ErrorDetail = () => {
                 const text = box.value.trim();
                 if (!text) return alert("Escribe un mensaje antes de enviar");
 
-                const loggedUser = JSON.parse(
-                  localStorage.getItem("loggedUser")
-                );
                 const userName =
                   loggedUser?.USERID ||
                   loggedUser?.ALIAS ||
@@ -772,7 +839,6 @@ const ErrorDetail = () => {
     {
       label: "Solución Final",
       content: (() => {
-        const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const solucionGuardada = Boolean(error.FINALSOLUTION);
         const solucion = error.FINALSOLUTION;
         console.log(error);
@@ -798,7 +864,8 @@ const ErrorDetail = () => {
                         setAiLoading(true);
 
                         // ID válido para Mongo y Azure
-                        const realId = error._id || error.ERRORID || error.rowKey;
+                        const realId =
+                          error._id || error.ERRORID || error.rowKey;
 
                         const ai = await fetchAISolution(realId);
 
@@ -812,7 +879,6 @@ const ErrorDetail = () => {
                         setShowAISuggestion(true);
                         setAiLoading(false);
                       }}
-
                     >
                       IA
                     </Button>
@@ -1049,8 +1115,8 @@ const ErrorDetail = () => {
     error.STATUS === "RESOLVED"
       ? "Success"
       : error.STATUS === "IGNORED"
-        ? "Warning"
-        : "Error";
+      ? "Warning"
+      : "Error";
 
   return (
     <>
